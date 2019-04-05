@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'screens/info.dart';
+import 'screens/location.dart';
+import 'screens/schedule.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -24,55 +28,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  int _index = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Google I/O 19 extended at HPI'),
+      body: _buildBody(),
+      bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Colors.red,
+        type: BottomNavigationBarType.shifting,
+        currentIndex: _index,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            title: Text('Info'),
+            backgroundColor: Colors.yellow,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            title: Text('Schedule'),
+            backgroundColor: Colors.deepOrange,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.location_on),
+            title: Text('Location'),
+            backgroundColor: Colors.green,
+          ),
+        ],
+        onTap: (index) => setState(() => _index = index),
       ),
-      bottomNavigationBar: Container(
-        color: Colors.yellow,
-        padding: EdgeInsets.only(top: 8),
-        child: BottomNavigationBar(
-          fixedColor: Colors.red,
-          type: BottomNavigationBarType.fixed,
-          currentIndex: 0,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.info),
-              title: Text('Info'),
-              backgroundColor: Colors.yellow,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today),
-              title: Text('Schedule'),
-              backgroundColor: Colors.deepOrange,
-            ),
-          ],
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('You have pushed the button this many times:'),
-            Text('$_counter', style: Theme.of(context).textTheme.display1),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  Widget _buildBody() {
+    switch (_index) {
+      case 0:
+        return InfoScreen();
+      case 1:
+        return ScheduleScreen();
+      case 2:
+        return LocationScreen();
+    }
   }
 }
