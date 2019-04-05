@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'bloc/model.dart';
 import 'screens/info.dart';
 import 'screens/location.dart';
 import 'screens/schedule.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Google I/O 19 extended at HPI',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       home: MyHomePage(),
     );
@@ -65,9 +66,13 @@ class _MyHomePageState extends State<MyHomePage> {
       case 0:
         return InfoScreen();
       case 1:
-        return ScheduleScreen();
+        return ScheduleScreen(
+          events: kEvents,
+        );
       case 2:
         return LocationScreen();
+      default:
+        throw "There are only three tabs to show.";
     }
   }
 }
