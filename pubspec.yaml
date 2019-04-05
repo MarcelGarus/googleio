@@ -1,0 +1,34 @@
+name: googleio19
+description: The companion app to Google I/O 19 extended at HPI.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cloud_firestore: ^0.9.11
+  flare_flutter: ^1.3.6
+  flutter_sticky_header: ^0.3.4
+  intl: ^0.15.8
+  rxdart: ^0.21.0
+
+  cupertino_icons: ^0.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/codelab.flr
+    - assets/hackathon.flr
+
+  fonts:
+    - family: Signature
+      fonts:
+        - asset: "assets/NeoSans.ttf"
