@@ -4,13 +4,16 @@ import '../bloc/model.dart';
 import '../screens/session.dart';
 import 'schedule.dart';
 
+const kSessionColor = Colors.white;
+
 class SessionInSchedule extends StatelessWidget {
-  SessionInSchedule({@required this.session});
+  SessionInSchedule(this.session);
 
   final Session session;
 
   Widget build(BuildContext context) {
     return EventInSchedule(
+      color: kSessionColor,
       event: session,
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
             builder: (ctx) => SessionScreen(session: session),
@@ -48,6 +51,10 @@ class SessionTagLabel extends StatelessWidget {
       case SessionTag.android:
         text = 'Android';
         color = Colors.green;
+        break;
+      case SessionTag.design:
+        text = 'Design';
+        color = Colors.red;
         break;
       case SessionTag.flutter:
         text = 'Flutter';

@@ -27,6 +27,10 @@ class StreamedProperty<T> {
     _subject.add(_value);
   }
 
+  void addError(Object error) {
+    _subject.addError(error);
+  }
+
   BehaviorSubject _subject;
   ValueObservable<T> get stream => _subject.stream; // TODO: .distinct()
 

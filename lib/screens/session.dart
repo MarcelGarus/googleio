@@ -20,7 +20,7 @@ class SessionScreen extends StatelessWidget {
 
     return DetailsScreen(
       tag: session,
-      backgroundColor: Colors.white,
+      backgroundColor: kSessionColor,
       children: <Widget>[
         Text(
           session.title,

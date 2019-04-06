@@ -10,7 +10,9 @@ class Event {
     @required this.start,
     @required this.duration,
     @required this.location,
-  });
+  })  : assert(start != null),
+        assert(duration != null),
+        assert(location != null);
 
   String get durationAndLocation {
     String text = '';
@@ -37,10 +39,13 @@ class Session extends Event {
     @required this.title,
     @required this.description,
     this.tags = const [],
-  }) : super(start: start, duration: duration, location: location);
+  })  : assert(title != null),
+        assert(description != null),
+        assert(tags != null),
+        super(start: start, duration: duration, location: location);
 }
 
-enum SessionTag { android, ai, flutter }
+enum SessionTag { ai, android, design, flutter }
 
 class Codelab extends Event {
   final String title;
@@ -50,11 +55,20 @@ class Codelab extends Event {
     @required Duration duration,
     @required String location,
     @required this.title,
-  }) : super(start: start, duration: duration, location: location);
+  })  : assert(title != null),
+        super(start: start, duration: duration, location: location);
 }
 
 class Hackathon extends Event {
   const Hackathon({
+    @required DateTime start,
+    @required Duration duration,
+    @required String location,
+  }) : super(start: start, duration: duration, location: location);
+}
+
+class Meal extends Event {
+  const Meal({
     @required DateTime start,
     @required Duration duration,
     @required String location,

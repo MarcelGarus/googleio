@@ -3,6 +3,7 @@ import 'package:flare_flutter/flare_actor.dart';
 
 import '../bloc/bloc.dart';
 import '../widgets/details_screen.dart';
+import '../widgets/hackathon.dart';
 
 class HackathonScreen extends StatefulWidget {
   HackathonScreen({
@@ -19,7 +20,7 @@ class _HackathonScreenState extends State<HackathonScreen> {
   Widget build(BuildContext context) {
     return DetailsScreen(
       tag: widget.hackathon,
-      backgroundColor: Colors.black87,
+      backgroundColor: kHackathonColor,
       iconColor: Colors.white,
       children: <Widget>[
         SizedBox(

@@ -5,21 +5,19 @@ import '../bloc/model.dart';
 import '../screens/hackathon.dart';
 import 'schedule.dart';
 
-const kHackathonColor = Color(0xFF111111);
+const kMealColor = Color(0xFFD32F2F);
 
-class HackathonInSchedule extends StatelessWidget {
-  HackathonInSchedule(this.hackathon);
+class MealInSchedule extends StatelessWidget {
+  MealInSchedule(this.meal);
 
-  final Hackathon hackathon;
+  final Meal meal;
 
   @override
   Widget build(BuildContext context) {
     return EventInSchedule(
-      event: hackathon,
-      color: kHackathonColor,
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            builder: (ctx) => HackathonScreen(hackathon: hackathon),
-          )),
+      event: meal,
+      color: kMealColor,
+      onTap: () {},
       child: SizedBox(
         height: 100,
         child: Stack(
@@ -31,19 +29,19 @@ class HackathonInSchedule extends StatelessWidget {
               child: Container(
                 width: 200,
                 alignment: Alignment.centerRight,
-                child: FlareActor('assets/hackathon.flr', animation: 'typing'),
+                //child: FlareActor('assets/hackathon.flr', animation: 'typing'),
               ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Hackathon',
+                  'Dinner',
                   style: scheduleTitleStyle.copyWith(color: Colors.white),
                 ),
                 Spacer(),
                 Text(
-                  hackathon.durationAndLocation,
+                  meal.durationAndLocation,
                   style: TextStyle(color: Colors.white),
                 ),
               ],

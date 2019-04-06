@@ -5,7 +5,7 @@ import '../bloc/model.dart';
 import 'schedule.dart';
 
 class CodelabInSchedule extends StatelessWidget {
-  CodelabInSchedule({@required this.codelab});
+  CodelabInSchedule(this.codelab);
 
   final Codelab codelab;
 

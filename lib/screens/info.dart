@@ -16,47 +16,56 @@ class _InfoScreenState extends State<InfoScreen>
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TabBar(
-        controller: _controller,
-        labelPadding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-        labelColor: Colors.black,
-        unselectedLabelColor: Colors.black54,
-        indicatorSize: TabBarIndicatorSize.tab,
-        indicatorPadding: const EdgeInsets.symmetric(horizontal: 16),
-        indicatorWeight: 3,
-        indicatorColor: Colors.deepOrange,
-        tabs: <Widget>[
-          Tab(text: 'Event'),
-          Tab(text: 'Travel'),
-          Tab(text: 'About'),
-          Tab(text: 'Settings'),
-        ],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0,
       ),
-      body: TabBarView(
-        controller: _controller,
+      backgroundColor: Colors.white,
+      body: ListView(
+        padding: const EdgeInsets.all(16),
         children: <Widget>[
-          EventInfo(),
-          TravelInfo(),
-          Container(),
-          Container(),
+          AboutGoogleIO(),
+          SizedBox(height: 16),
+          AboutEventTypes(),
         ],
       ),
     );
   }
 }
 
-class EventInfo extends StatelessWidget {
+const kSectionTitleStyle = TextStyle(
+  fontFamily: 'Signature',
+  fontSize: 24,
+);
+
+class AboutGoogleIO extends StatelessWidget {
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text('WIFI'),
-        Text('Wifi network: "io2019"'),
-        Text('hassoisagreatman'),
-        Text('EVENT TYPES'),
-        Text('Sessions'),
-        Text('Codelabs'),
-        Text('Hackathons'),
-        Text('Meals'),
+        Text('About Google I/O', style: kSectionTitleStyle),
+        SizedBox(height: 8),
+        Text(
+            "Every year, Google hosts a developer conference in Mountain View, "
+            "California, where new features of its products are announced. "
+            "Viewing parties around the world collaborate with Google in "
+            "building the technologies that shape our future."),
+      ],
+    );
+  }
+}
+
+class AboutEventTypes extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text('Event types', style: kSectionTitleStyle),
+        SizedBox(height: 8),
+        Material(
+          child: Text('Noice'),
+        ),
       ],
     );
   }
