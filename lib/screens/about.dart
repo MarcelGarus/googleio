@@ -16,32 +16,40 @@ class AboutScreen extends StatefulWidget {
 class _AboutScreenState extends State<AboutScreen> {
   bool showPhone = true;
 
+  Future<bool> customPop() async {
+    if (!showPhone) return true;
+
+    setState(() => showPhone = false);
+    Future.delayed(
+      Duration.zero,
+      () => Navigator.of(context).pop(),
+    );
+    return false;
+  }
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).padding.top),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                setState(() => showPhone = false);
-                Future.delayed(
-                  Duration.zero,
-                  () => Navigator.of(context).pop(),
-                );
-              },
+    return WillPopScope(
+      onWillPop: customPop,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: ListView(
+          padding: const EdgeInsets.all(16),
+          children: <Widget>[
+            SizedBox(height: MediaQuery.of(context).padding.top),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: customPop,
+              ),
             ),
-          ),
-          AboutGoogleIO(),
-          SizedBox(height: 16),
-          AboutEventTypes(),
-          SizedBox(height: 16),
-          AboutApp(showPhone: showPhone),
-        ],
+            AboutGoogleIO(),
+            SizedBox(height: 16),
+            AboutEventTypes(),
+            SizedBox(height: 16),
+            AboutApp(showPhone: showPhone),
+          ],
+        ),
       ),
     );
   }
