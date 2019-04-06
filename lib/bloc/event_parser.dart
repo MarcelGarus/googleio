@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'model.dart';
+import 'models.dart';
 
 List<Event> parseDocuments(List<DocumentSnapshot> documents) {
   var events = <Event>[];

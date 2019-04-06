@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../bloc/model.dart';
+import '../bloc/models.dart';
 import '../widgets/details_screen.dart';
 import '../widgets/session.dart';
 

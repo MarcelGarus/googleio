@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
-import '../bloc/model.dart';
+import '../bloc/models.dart';
 import 'schedule.dart';
 
 const kCodelabColor = Colors.amber;

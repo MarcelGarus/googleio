@@ -1,29 +1,46 @@
 import 'package:flutter/material.dart';
-//import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
+import '../main.dart';
 import '../widgets/codelab.dart';
 import '../widgets/hackathon.dart';
 import '../widgets/meal.dart';
 import '../widgets/schedule.dart';
 import '../widgets/session.dart';
 
-class AboutScreen extends StatelessWidget {
+class AboutScreen extends StatefulWidget {
+  @override
+  _AboutScreenState createState() => _AboutScreenState();
+}
+
+class _AboutScreenState extends State<AboutScreen> {
+  bool showPhone = true;
+
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        elevation: 0,
-      ),
       backgroundColor: Colors.white,
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: <Widget>[
+          SizedBox(height: MediaQuery.of(context).padding.top),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                setState(() => showPhone = false);
+                Future.delayed(
+                  Duration.zero,
+                  () => Navigator.of(context).pop(),
+                );
+              },
+            ),
+          ),
           AboutGoogleIO(),
           SizedBox(height: 16),
           AboutEventTypes(),
           SizedBox(height: 16),
-          AboutApp(),
+          AboutApp(showPhone: showPhone),
         ],
       ),
     );
@@ -118,7 +135,7 @@ class AboutType extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: EventInSchedule(
-        tag: 'type $title',
+        tag: 'about type $title',
         color: color,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -135,6 +152,10 @@ class AboutType extends StatelessWidget {
 }
 
 class AboutApp extends StatelessWidget {
+  AboutApp({this.showPhone = true});
+
+  final bool showPhone;
+
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -143,16 +164,49 @@ class AboutApp extends StatelessWidget {
         SizedBox(height: 8),
         Text("This app is independently developed by Marcel Garus. "
             "Feel free to leave a star on GitHub."),
-        Container(
-          height: 200,
-          width: 300,
-          color: Colors.red,
-          /*child: WebView(
-            initialUrl: 'https://flutter.io',
-            javascriptMode: JavascriptMode.unrestricted,
-          ),*/
-        ),
+        FittedBox(child: _buildPhone()),
       ],
+    );
+  }
+
+  Widget _buildPhone() {
+    return Container(
+      width: 400,
+      height: 300,
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(child: FlareActor("assets/phone.flr")),
+          Positioned(
+            top: 39,
+            left: 62,
+            child: Transform.rotate(
+              angle: -0.1,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  width: 107,
+                  height: 196,
+                  color: Colors.white,
+                  child: FittedBox(
+                    child: Container(
+                      width: 428,
+                      height: 784,
+                      color: Colors.white,
+                      child: !showPhone
+                          ? null
+                          : MaterialApp(
+                              title: 'Google I/O 19 extended at HPI',
+                              theme: ThemeData(primarySwatch: Colors.red),
+                              home: MainScreen(),
+                            ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

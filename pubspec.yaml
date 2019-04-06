@@ -27,6 +27,7 @@ flutter:
   assets:
     - assets/codelab.flr
     - assets/hackathon.flr
+    - assets/phone.flr
 
   fonts:
     - family: Signature

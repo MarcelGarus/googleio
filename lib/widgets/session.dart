@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../bloc/model.dart';
+import '../bloc/models.dart';
 import '../screens/session.dart';
 import 'schedule.dart';
 

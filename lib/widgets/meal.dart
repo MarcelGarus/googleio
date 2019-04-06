@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flare_flutter/flare_actor.dart';
 
-import '../bloc/model.dart';
-import '../screens/hackathon.dart';
+import '../bloc/models.dart';
 import 'schedule.dart';
 
 const kMealColor = Color(0xFFD32F2F);
