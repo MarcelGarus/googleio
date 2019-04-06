@@ -14,7 +14,7 @@ class SessionInSchedule extends StatelessWidget {
   Widget build(BuildContext context) {
     return EventInSchedule(
       color: kSessionColor,
-      event: session,
+      tag: session,
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
             builder: (ctx) => SessionScreen(session: session),
           )),

@@ -15,7 +15,7 @@ class HackathonInSchedule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EventInSchedule(
-      event: hackathon,
+      tag: hackathon,
       color: kHackathonColor,
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
             builder: (ctx) => HackathonScreen(hackathon: hackathon),

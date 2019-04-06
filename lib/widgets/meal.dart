@@ -15,7 +15,7 @@ class MealInSchedule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EventInSchedule(
-      event: meal,
+      tag: meal,
       color: kMealColor,
       onTap: () {},
       child: SizedBox(

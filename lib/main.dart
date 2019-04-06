@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 import 'bloc/bloc.dart';
 import 'bloc/bloc_provider.dart';
-import 'screens/info.dart';
+import 'screens/about.dart';
 import 'screens/schedule.dart';
 import 'widgets/error.dart';
 
@@ -124,7 +124,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           icon: Icon(Icons.info_outline, color: Colors.black),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (ctx) => InfoScreen(),
+              builder: (ctx) => AboutScreen(),
             ));
           },
         ),
@@ -145,30 +145,38 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       return Center(child: CircularProgressIndicator());
     }
 
-    return Column(
+    return Stack(
       children: <Widget>[
-        Material(
-          color: Colors.white,
-          elevation: 2,
-          child: TabBar(
-            controller: _controller,
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.black54,
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicatorPadding: const EdgeInsets.symmetric(horizontal: 16),
-            indicatorWeight: 3,
-            indicatorColor: Colors.deepOrange,
-            tabs: _eventDays.map((dayOfEvents) {
-              return Tab(text: DateFormat.MMMd().format(dayOfEvents.day));
-            }).toList(),
+        Positioned.fill(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 48),
+            child: TabBarView(
+              controller: _controller,
+              children: _eventDays.map((eventDay) {
+                return DailySchedule(timeslots: eventDay.timeslots);
+              }).toList(),
+            ),
           ),
         ),
-        Expanded(
-          child: TabBarView(
-            controller: _controller,
-            children: _eventDays.map((eventDay) {
-              return DailySchedule(timeslots: eventDay.timeslots);
-            }).toList(),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Material(
+            color: Colors.white,
+            elevation: 2,
+            child: TabBar(
+              controller: _controller,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.black54,
+              indicatorSize: TabBarIndicatorSize.tab,
+              indicatorPadding: const EdgeInsets.symmetric(horizontal: 16),
+              indicatorWeight: 3,
+              indicatorColor: Colors.deepOrange,
+              tabs: _eventDays.map((dayOfEvents) {
+                return Tab(text: DateFormat.MMMd().format(dayOfEvents.day));
+              }).toList(),
+            ),
           ),
         ),
       ],

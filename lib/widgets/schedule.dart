@@ -4,13 +4,13 @@ import '../bloc/model.dart';
 
 class EventInSchedule extends StatelessWidget {
   EventInSchedule({
-    @required this.event,
+    @required this.tag,
     this.color,
     this.onTap,
     @required this.child,
   });
 
-  final Event event;
+  final Object tag;
   final Color color;
   final VoidCallback onTap;
   final Widget child;
@@ -19,7 +19,7 @@ class EventInSchedule extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 4, 8, 4),
       child: Hero(
-        tag: event,
+        tag: tag ?? '_',
         child: Material(
           color: color,
           borderRadius: BorderRadius.circular(8),

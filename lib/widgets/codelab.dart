@@ -4,6 +4,8 @@ import 'package:flare_flutter/flare_actor.dart';
 import '../bloc/model.dart';
 import 'schedule.dart';
 
+const kCodelabColor = Colors.amber;
+
 class CodelabInSchedule extends StatelessWidget {
   CodelabInSchedule(this.codelab);
 
@@ -11,8 +13,8 @@ class CodelabInSchedule extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return EventInSchedule(
-      event: codelab,
-      color: Colors.amber,
+      tag: codelab,
+      color: kCodelabColor,
       child: Stack(
         children: <Widget>[
           Positioned(
