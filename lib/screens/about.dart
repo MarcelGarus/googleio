@@ -96,12 +96,12 @@ class AboutEventTypes extends StatelessWidget {
           description:
               "Get hands-on experience with various stuff. Bring your own "
               "machine, and we'll try to give you helpful advice and provide "
-              "direction if you get stuck.",
+              "directions if you get stuck.",
           color: kCodelabColor,
         ),
         AboutType(
           title: 'Hackathon',
-          description: "Callaborate intensively on software for the duration "
+          description: "Collaborate intensively on software for the duration "
               "of less than a day. There are prices for those who create the "
               "best product!",
           color: kHackathonColor,
@@ -203,7 +203,6 @@ class AboutApp extends StatelessWidget {
                       child: !showPhone
                           ? null
                           : MaterialApp(
-                              title: 'Google I/O 19 extended at HPI',
                               theme: ThemeData(primarySwatch: Colors.red),
                               home: MainScreen(),
                             ),

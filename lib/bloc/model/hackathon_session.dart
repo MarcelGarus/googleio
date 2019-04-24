@@ -36,8 +36,7 @@ class Team {
   final String appName;
   final String appDescription;
   final List<Member> members;
-  final Rating ideaRating;
-  final Rating designRating;
+  final Set<Rating> ratings;
   final double weightedRating;
 
   const Team({
@@ -45,8 +44,7 @@ class Team {
     this.appName = '',
     this.appDescription = '',
     this.members = const [],
-    this.ideaRating,
-    this.designRating,
+    this.ratings,
     this.weightedRating,
   });
 }
@@ -60,16 +58,15 @@ class Member {
 
 @immutable
 class Rating {
-  final int one, two, three, four, five;
+  final String dimension;
+  final Map<int, int> votes;
+
   double get average =>
-      (one + 2 * two + 3 * three + 4 * four + 5 * five) /
-      (one + two + three + four + five);
+      votes.entries.map((e) => e.key * e.value).reduce((a, b) => a + b) /
+      votes.length;
 
   const Rating({
-    @required this.one,
-    @required this.two,
-    @required this.three,
-    @required this.four,
-    @required this.five,
+    @required this.dimension,
+    @required this.votes,
   });
 }

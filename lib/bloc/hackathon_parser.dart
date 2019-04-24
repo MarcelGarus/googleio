@@ -25,8 +25,10 @@ Map<String, Team> parseTeams(QuerySnapshot data) {
       appName: data['appName'],
       appDescription: data['appDescription'],
       members: (data['members'] as List).map((name) => Member(name)).toList(),
-      ideaRating: parseRating(Map<String, dynamic>.from(data['idea'])),
-      designRating: parseRating(Map<String, dynamic>.from(data['design'])),
+      ratings: {
+        parseRating("idea", Map<String, dynamic>.from(data['idea'])),
+        parseRating("design", Map<String, dynamic>.from(data['design'])),
+      },
       weightedRating: data['weightedRating'],
     );
   }
@@ -34,12 +36,15 @@ Map<String, Team> parseTeams(QuerySnapshot data) {
   return teams;
 }
 
-Rating parseRating(Map<String, dynamic> data) {
+Rating parseRating(String dimension, Map<String, dynamic> data) {
   return Rating(
-    one: data['1'],
-    two: data['2'],
-    three: data['3'],
-    four: data['4'],
-    five: data['5'],
+    dimension: dimension,
+    votes: {
+      1: data['1'],
+      2: data['2'],
+      3: data['3'],
+      4: data['4'],
+      5: data['5'],
+    },
   );
 }
