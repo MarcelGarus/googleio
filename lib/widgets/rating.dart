@@ -58,12 +58,12 @@ class RatingView extends StatelessWidget {
   final Rating rating;
 
   Widget build(BuildContext context) {
-    var votes = rating.votes
+    var votes = rating.votes;
 
     return Stack(
       children: <Widget>[
         _buildBar(Colors.white12, 1),
-        _buildBar(kRatingColors[1], ),
+        _buildBar(kRatingColors[1], 1),
         Container(
           height: 10,
           color: Colors.white12,

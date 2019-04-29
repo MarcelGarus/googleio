@@ -36,9 +36,7 @@ class _HackathonScreenState extends State<HackathonScreen> {
             tag: widget.hackathon,
             backgroundColor: kHackathonColor,
             iconColor: Colors.white,
-            children: [
-              Expanded(child: Center(child: CircularProgressIndicator())),
-            ],
+            child: Center(child: CircularProgressIndicator()),
           );
         }
 
@@ -57,7 +55,7 @@ class _HackathonScreenState extends State<HackathonScreen> {
           tag: widget.hackathon,
           backgroundColor: kHackathonColor,
           iconColor: Colors.white,
-          children: [child],
+          child: Center(child: child),
         );
       },
     );
@@ -78,35 +76,23 @@ class _HackathonScreenState extends State<HackathonScreen> {
   }
 
   Widget _buildDuringPresentation(HackathonSession hackathon) {
-    var presenter = hackathon.presenter;
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text('Currently presenting', style: TextStyle(color: Colors.white)),
-        SizedBox(height: 16),
-        Text(
-          '${presenter.name}',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 32,
-            fontFamily: 'Signature',
-          ),
-        ),
-        SizedBox(height: 32),
-        Text(
-          'Please listen to the presentation and afterwards,\ngive your feedback:',
-          style: TextStyle(color: Colors.white),
-          textAlign: TextAlign.center,
-        ),
+        _buildStoreEntry(hackathon.presenter),
         SizedBox(height: 32),
         RatingInput(
           title: 'Idea',
           onRatingChanged: (rating) {},
         ),
-        SizedBox(height: 32),
+        SizedBox(height: 16),
         RatingInput(
           title: 'Design',
+          onRatingChanged: (rating) {},
+        ),
+        SizedBox(height: 16),
+        RatingInput(
+          title: 'Implementation',
           onRatingChanged: (rating) {},
         ),
         SizedBox(height: 32),
@@ -116,6 +102,37 @@ class _HackathonScreenState extends State<HackathonScreen> {
           onPressed: () {},
         ),
       ],
+    );
+  }
+
+  Widget _buildStoreEntry(Hacker presenter) {
+    var bigStyle = TextStyle(
+      fontSize: 32,
+      fontFamily: 'Signature',
+      fontWeight: FontWeight.w900,
+    );
+
+    return Material(
+      color: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        width: 300,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(presenter.name, style: bigStyle),
+            SizedBox(height: 4),
+            Text(
+              'by ${presenter.name}',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            Text(presenter.appDescription),
+          ],
+        ),
+      ),
     );
   }
 

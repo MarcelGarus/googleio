@@ -64,13 +64,13 @@ class Bloc {
         (snapshot) async {
           var hackathon = parseHackathon(snapshot.data);
           if (!hackathon.isBeforePresentations) {
-            // Load teams.
-            var teams = await Firestore.instance
+            // Load hackers.
+            var hackers = await Firestore.instance
                 .collection('hackathons')
                 .document('hackathon')
-                .collection('teams')
+                .collection('hackers')
                 .getDocuments();
-            hackathon = hackathon.withTeams(parseTeams(teams));
+            hackathon = hackathon.withHackers(parseHackers(hackers));
           }
           _hackathon.value = hackathon;
         },
@@ -79,5 +79,27 @@ class Bloc {
     } catch (e) {
       _hackathon.addError(e);
     }
+  }
+
+  Future<void> submitRating(int idea, int design, int implementation) async {
+    try {
+      await Firestore.instance.runTransaction((Transaction tx) async {
+        var presenterRef = Firestore.instance
+            .collection('hackathons')
+            .document('hackathon')
+            .collection('hackers')
+            .document(_hackathon.value.currentlyPresenting);
+
+        // Get the presenter.
+        DocumentSnapshot snapshot = await tx.get(presenterRef);
+        if (!snapshot.exists) return;
+        var presenter = parseHacker(snapshot);
+
+        await tx.update(presenterRef, <String, dynamic>{
+          'idea': presenter.idea.votes, // TODO:
+          'likesCount': snapshot.data['likesCount'] + 1,
+        });
+      });
+    } catch (e) {}
   }
 }

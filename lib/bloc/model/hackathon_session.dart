@@ -2,28 +2,29 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class HackathonSession {
-  final Map<String, Team> teams;
-  final String _currentlyPresenting;
+  final Map<String, Hacker> hackers;
+  final String currentlyPresenting;
   final bool isOver;
   final DateTime startOfCoding;
   final DateTime endOfCoding;
 
   const HackathonSession({
-    @required this.teams,
-    currentlyPresenting,
-    this.isOver = false,
-    this.startOfCoding,
-    this.endOfCoding,
-  }) : _currentlyPresenting = currentlyPresenting;
+    @required this.hackers,
+    @required this.currentlyPresenting,
+    @required this.isOver,
+    @required this.startOfCoding,
+    @required this.endOfCoding,
+  });
 
   bool get isBeforePresentations => !isSomeonePresenting && !isOver;
-  bool get isSomeonePresenting => _currentlyPresenting != null;
-  Team get presenter => teams[_currentlyPresenting];
+  bool get isSomeonePresenting => currentlyPresenting != null;
+  Hacker get presenter => hackers[currentlyPresenting];
 
-  HackathonSession withTeams(Map<String, Team> teams) {
+  HackathonSession withHackers(Map<String, Hacker> hackers) {
     return HackathonSession(
-      teams: teams,
-      currentlyPresenting: _currentlyPresenting,
+      hackers: hackers,
+      currentlyPresenting: currentlyPresenting,
+      isOver: false,
       startOfCoding: startOfCoding,
       endOfCoding: endOfCoding,
     );
@@ -31,42 +32,33 @@ class HackathonSession {
 }
 
 @immutable
-class Team {
+class Hacker {
   final String name;
   final String appName;
   final String appDescription;
-  final List<Member> members;
-  final Set<Rating> ratings;
+  final Rating idea;
+  final Rating design;
+  final Rating implementation;
   final double weightedRating;
 
-  const Team({
-    this.name = '',
-    this.appName = '',
-    this.appDescription = '',
-    this.members = const [],
-    this.ratings,
-    this.weightedRating,
+  const Hacker({
+    @required this.name,
+    @required this.appName,
+    @required this.appDescription,
+    @required this.idea,
+    @required this.design,
+    @required this.implementation,
+    @required this.weightedRating,
   });
 }
 
 @immutable
-class Member {
-  final String name;
-
-  Member(this.name);
-}
-
-@immutable
 class Rating {
-  final String dimension;
   final Map<int, int> votes;
 
   double get average =>
       votes.entries.map((e) => e.key * e.value).reduce((a, b) => a + b) /
       votes.length;
 
-  const Rating({
-    @required this.dimension,
-    @required this.votes,
-  });
+  const Rating({@required this.votes});
 }

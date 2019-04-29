@@ -10,35 +10,37 @@ HackathonSession parseHackathon(Map<String, dynamic> data) {
         (data['endOfCoding'] as Timestamp).microsecondsSinceEpoch),
     currentlyPresenting: data['currentlyPresenting'],
     isOver: data['isOver'],
-    teams: {},
+    hackers: {},
   );
 }
 
-Map<String, Team> parseTeams(QuerySnapshot data) {
-  var teams = Map<String, Team>();
+Map<String, Hacker> parseHackers(QuerySnapshot data) {
+  var hackers = Map<String, Hacker>();
 
   for (var doc in data.documents) {
-    var data = doc.data;
-
-    teams[doc.documentID] = Team(
-      name: data['name'],
-      appName: data['appName'],
-      appDescription: data['appDescription'],
-      members: (data['members'] as List).map((name) => Member(name)).toList(),
-      ratings: {
-        parseRating("idea", Map<String, dynamic>.from(data['idea'])),
-        parseRating("design", Map<String, dynamic>.from(data['design'])),
-      },
-      weightedRating: data['weightedRating'],
-    );
+    hackers[doc.documentID] = parseHacker(doc);
   }
 
-  return teams;
+  return hackers;
 }
 
-Rating parseRating(String dimension, Map<String, dynamic> data) {
+Hacker parseHacker(DocumentSnapshot doc) {
+  var data = doc.data;
+
+  return Hacker(
+    name: data['name'],
+    appName: data['appName'],
+    appDescription: data['appDescription'],
+    idea: parseRating(Map<String, dynamic>.from(data['idea'])),
+    design: parseRating(Map<String, dynamic>.from(data['design'])),
+    implementation:
+        parseRating(Map<String, dynamic>.from(data['implementation'])),
+    weightedRating: data['weightedRating'],
+  );
+}
+
+Rating parseRating(Map<String, dynamic> data) {
   return Rating(
-    dimension: dimension,
     votes: {
       1: data['1'],
       2: data['2'],
